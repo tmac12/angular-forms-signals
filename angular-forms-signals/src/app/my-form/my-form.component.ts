@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -12,7 +13,7 @@ import { debounceTime, of } from 'rxjs';
 @Component({
   selector: 'app-my-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, JsonPipe],
   templateUrl: './my-form.component.html',
 })
 export class MyFormComponent {
@@ -28,6 +29,8 @@ export class MyFormComponent {
       of(null),
     {}
   );
+
+  submittedResults = toSignal(this.profileForm.valueChanges, {});
 
   // constructor() {
   //   this.profileForm = this.formBuilder.group({
