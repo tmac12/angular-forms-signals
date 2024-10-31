@@ -17,10 +17,10 @@ import { debounceTime, of } from 'rxjs';
   templateUrl: './my-form.component.html',
 })
 export class MyFormComponent {
-  formBuilder = inject(FormBuilder);
-  profileForm: FormGroup = this.formBuilder.group({
-    email: new FormControl('', Validators.required),
-    password: '',
+  #formBuilder = inject(FormBuilder);
+  profileForm: FormGroup = this.#formBuilder.group({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl(),
     country: new FormControl('', Validators.required),
   });
 
