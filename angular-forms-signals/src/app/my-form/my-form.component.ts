@@ -23,10 +23,10 @@ export class MyFormComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl(),
       country: new FormControl('', Validators.required),
+    },
+    {
+      updateOn: 'blur',
     }
-    // {
-    //   updateOn: 'blur',
-    // }
   );
 
   emailSignal = toSignal(
