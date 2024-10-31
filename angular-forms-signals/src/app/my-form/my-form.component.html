@@ -12,6 +12,12 @@
           class="input input-bordered"
           formControlName="email"
         />
+        @if(profileForm.controls['email'].touched &&
+        profileForm.controls['email'].invalid){
+        <label class="label">
+          <span class="label-text-alt text-error">Email is required</span>
+        </label>
+        }
       </div>
       <div class="form-control">
         <label class="label">

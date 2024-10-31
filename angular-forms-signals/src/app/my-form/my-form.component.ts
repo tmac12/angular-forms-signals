@@ -18,11 +18,16 @@ import { debounceTime, of } from 'rxjs';
 })
 export class MyFormComponent {
   #formBuilder = inject(FormBuilder);
-  profileForm: FormGroup = this.#formBuilder.group({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl(),
-    country: new FormControl('', Validators.required),
-  });
+  profileForm: FormGroup = this.#formBuilder.group(
+    {
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl(),
+      country: new FormControl('', Validators.required),
+    }
+    // {
+    //   updateOn: 'blur',
+    // }
+  );
 
   emailSignal = toSignal(
     this.profileForm.get('email')?.valueChanges.pipe(debounceTime(300)) ??
