@@ -4,6 +4,7 @@ import {
   computed,
   ContentChild,
   inject,
+  input,
   Input,
   TemplateRef,
 } from '@angular/core';
@@ -17,13 +18,16 @@ import { ControlContainer, FormGroup } from '@angular/forms';
   styleUrl: './form-field.component.scss',
 })
 export class FormFieldComponent {
-  @Input() controlName!: string; // Input for control name
+  controlName = input<string>();
+
   @ContentChild(TemplateRef, { static: true }) inputTemplate!: TemplateRef<any>;
 
   private controlContainer = inject(ControlContainer);
   control = computed(() => {
+    const controlName = this.controlName();
+    if (!controlName) return null;
     const formGroup = this.controlContainer.control as FormGroup;
-    return formGroup.get(this.controlName);
+    return formGroup.get(controlName);
   });
 
   errorMessaged = computed(() => {
