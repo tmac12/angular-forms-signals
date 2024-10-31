@@ -1,14 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  computed,
-  contentChild,
-  ContentChild,
-  inject,
-  input,
-  Input,
-  TemplateRef,
-} from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 
 @Component({
@@ -21,7 +12,6 @@ import { ControlContainer, FormGroup } from '@angular/forms';
 export class FormFieldComponent {
   #controlContainer = inject(ControlContainer);
   controlName = input<string>();
-  inputTemplate = contentChild(TemplateRef);
 
   control = computed(() => {
     const controlName = this.controlName();

@@ -1,16 +1,6 @@
-<!-- <ng-content></ng-content>
-@if (profileForm.controls.email.touched &&
-        profileForm.controls.email.invalid){
-        <label class="label">
-          <span class="label-text-alt text-error">{{errorMessage}}</span>
-        </label>
-        } -->
-
 <div class="form-field">
-  @let inputTemplateSignal = inputTemplate(); @if (inputTemplateSignal){
-
-  <ng-container *ngTemplateOutlet="inputTemplateSignal"></ng-container>
-  } @let currentControl = control(); @if (currentControl?.invalid &&
+  <ng-content></ng-content>
+  @let currentControl = control(); @if (currentControl?.invalid &&
   (currentControl?.dirty || currentControl?.touched)) {
   <div class="error-messages">
     @for (message of errorMessaged(); track $index) {
