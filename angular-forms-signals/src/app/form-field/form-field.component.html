@@ -7,8 +7,10 @@
         } -->
 
 <div class="form-field">
-  <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
-  @let currentControl = control(); @if (currentControl?.invalid &&
+  @let inputTemplateSignal = inputTemplate(); @if (inputTemplateSignal){
+
+  <ng-container *ngTemplateOutlet="inputTemplateSignal"></ng-container>
+  } @let currentControl = control(); @if (currentControl?.invalid &&
   (currentControl?.dirty || currentControl?.touched)) {
   <div class="error-messages">
     @for (message of errorMessaged(); track $index) {

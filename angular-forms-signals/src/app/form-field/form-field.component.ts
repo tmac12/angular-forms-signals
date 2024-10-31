@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
+  contentChild,
   ContentChild,
   inject,
   input,
@@ -18,15 +19,14 @@ import { ControlContainer, FormGroup } from '@angular/forms';
   styleUrl: './form-field.component.scss',
 })
 export class FormFieldComponent {
+  #controlContainer = inject(ControlContainer);
   controlName = input<string>();
+  inputTemplate = contentChild(TemplateRef);
 
-  @ContentChild(TemplateRef, { static: true }) inputTemplate!: TemplateRef<any>;
-
-  private controlContainer = inject(ControlContainer);
   control = computed(() => {
     const controlName = this.controlName();
     if (!controlName) return null;
-    const formGroup = this.controlContainer.control as FormGroup;
+    const formGroup = this.#controlContainer.control as FormGroup;
     return formGroup.get(controlName);
   });
 
