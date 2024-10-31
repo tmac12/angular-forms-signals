@@ -1,24 +1,24 @@
 <div class="flex flex-row">
   <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
     <form class="card-body" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <div class="form-control">
-        <label class="label" for="email">
-          <span class="label-text">Email</span>
-        </label>
-        <input
-          id="email"
-          type="email"
-          placeholder="email"
-          class="input input-bordered"
-          formControlName="email"
-        />
-        @if (profileForm.controls.email.touched &&
-        profileForm.controls.email.invalid){
-        <label class="label">
-          <span class="label-text-alt text-error">Email is required</span>
-        </label>
-        }
-      </div>
+      <!-- Email -->
+      <app-form-field controlName="email">
+        <ng-template>
+          <div class="input-container">
+            <label class="label">
+              <span class="label-text">Email</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="email"
+              class="input input-bordered"
+              formControlName="email"
+            />
+          </div>
+        </ng-template>
+      </app-form-field>
+
       <div class="form-control">
         <label class="label">
           <span class="label-text">Country</span>

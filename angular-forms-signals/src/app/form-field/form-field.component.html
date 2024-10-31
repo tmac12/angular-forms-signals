@@ -1,0 +1,17 @@
+<!-- <ng-content></ng-content>
+@if (profileForm.controls.email.touched &&
+        profileForm.controls.email.invalid){
+        <label class="label">
+          <span class="label-text-alt text-error">{{errorMessage}}</span>
+        </label>
+        } -->
+
+<div class="form-field">
+  <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
+  <div
+    *ngIf="control?.invalid && (control?.dirty || control?.touched)"
+    class="error-messages"
+  >
+    <div *ngFor="let message of errorMessages">{{ message }}</div>
+  </div>
+</div>

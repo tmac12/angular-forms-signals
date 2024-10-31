@@ -8,11 +8,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { debounceTime, of } from 'rxjs';
+import { FormFieldComponent } from '../form-field/form-field.component';
 
 @Component({
   selector: 'app-my-form',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe, FormFieldComponent],
   templateUrl: './my-form.component.html',
 })
 export class MyFormComponent {
