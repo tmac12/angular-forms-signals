@@ -8,10 +8,12 @@
 
 <div class="form-field">
   <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
-  <div
-    *ngIf="control?.invalid && (control?.dirty || control?.touched)"
-    class="error-messages"
-  >
-    <div *ngFor="let message of errorMessages">{{ message }}</div>
+  @let currentControl = control(); @if (currentControl?.invalid &&
+  (currentControl?.dirty || currentControl?.touched)) {
+  <div class="error-messages">
+    @for (message of errorMessaged(); track $index) {
+    {{ message }}
+    }
   </div>
+  }
 </div>

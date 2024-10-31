@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import {
+  Component,
+  computed,
+  ContentChild,
+  inject,
+  Input,
+  TemplateRef,
+} from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,20 +17,19 @@ import { ControlContainer, FormGroup } from '@angular/forms';
   styleUrl: './form-field.component.scss',
 })
 export class FormFieldComponent {
-  // @ContentChild('inputTemplate', { static: true })
-  // inputTemplate!: TemplateRef<any>;
   @Input() controlName!: string; // Input for control name
   @ContentChild(TemplateRef, { static: true }) inputTemplate!: TemplateRef<any>;
 
-  constructor(private controlContainer: ControlContainer) {}
-
-  get control() {
+  private controlContainer = inject(ControlContainer);
+  control = computed(() => {
     const formGroup = this.controlContainer.control as FormGroup;
-    return formGroup.get(this.controlName); // Get the specific FormControl
-  }
+    return formGroup.get(this.controlName);
+  });
 
-  get errorMessages() {
-    const errors = this.control?.errors;
+  errorMessaged = computed(() => {
+    const control = this.control();
+    if (!control) return null;
+    const errors = control.errors;
     if (!errors) return null;
 
     return Object.keys(errors).map((key) => {
@@ -37,5 +43,5 @@ export class FormFieldComponent {
           return 'Invalid input';
       }
     });
-  }
+  });
 }
