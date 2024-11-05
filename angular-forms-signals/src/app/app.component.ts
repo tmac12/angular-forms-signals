@@ -1,12 +1,20 @@
+import { TuiRoot } from '@taiga-ui/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MyFormComponent } from './my-form/my-form.component';
 import { MyformlyComponent } from './myformly/myformly.component';
+import { TaigaFormsComponent } from './taiga/taiga-forms/taiga-forms.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MyFormComponent, MyformlyComponent],
+  imports: [
+    RouterOutlet,
+    MyFormComponent,
+    MyformlyComponent,
+    TuiRoot,
+    TaigaFormsComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

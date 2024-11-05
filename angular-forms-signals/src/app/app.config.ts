@@ -1,3 +1,5 @@
+import { NG_EVENT_PLUGINS } from "@taiga-ui/event-plugins";
+import { provideAnimations } from "@angular/platform-browser/animations";
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -35,7 +37,8 @@ export function maxValidationMessage(error: any, field: FormlyFieldConfig) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+        provideAnimations(),
+        provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     importProvidersFrom([
       ReactiveFormsModule,
@@ -51,5 +54,6 @@ export const appConfig: ApplicationConfig = {
         ],
       }),
     ]),
-  ],
+        NG_EVENT_PLUGINS
+    ],
 };

@@ -1,0 +1,41 @@
+<!-- <form [formGroup]="testForm">
+  <tui-input formControlName="testValue">
+    Type a text
+    <input tuiTextfieldLegacy />
+  </tui-input>
+</form> -->
+<form [formGroup]="testForm">
+  <tui-textfield>
+    <label> Type a text </label>
+    <input
+      formControlName="testValue"
+      tuiTextfield
+      class="input input-bordered"
+    />
+  </tui-textfield>
+</form>
+
+<!-- <form [formGroup]="form">
+  <tui-textfield>
+    <label tuiLabel>Card number</label>
+    <input
+      formControlName="card"
+      tuiInputCard
+      tuiTextfield
+      [icon]="card"
+      (binChange)="onBinChange($event)"
+    />
+  </tui-textfield>
+  <section>
+    <tui-textfield>
+      <label tuiLabel>Expires</label>
+      <input formControlName="expire" tuiInputExpire tuiTextfield />
+    </tui-textfield>
+    <tui-textfield>
+      <label tuiLabel>CVC/CVV</label>
+      <input formControlName="cvc" tuiInputCVC tuiTextfield />
+    </tui-textfield>
+  </section>
+  <tui-error formControlName="card" [error]="[] | tuiFieldError | async" />
+</form> -->
+<p>{{ testForm.value | json }}</p>
