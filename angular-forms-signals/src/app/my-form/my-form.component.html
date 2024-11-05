@@ -3,20 +3,18 @@
     <form class="card-body" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
       <!-- Email -->
       <app-form-field controlName="email">
-        <ng-template>
-          <div class="input-container">
-            <label class="label">
-              <span class="label-text">Email</span>
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="email"
-              class="input input-bordered"
-              formControlName="email"
-            />
-          </div>
-        </ng-template>
+        <div class="input-container">
+          <label class="label">
+            <span class="label-text">Email</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="email"
+            class="input input-bordered"
+            formControlName="email"
+          />
+        </div>
       </app-form-field>
 
       <div class="form-control">

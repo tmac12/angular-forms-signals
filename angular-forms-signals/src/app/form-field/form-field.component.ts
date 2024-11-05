@@ -1,6 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
-import { ControlContainer, FormGroup } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  Input,
+  input,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-form-field',
@@ -8,22 +18,39 @@ import { ControlContainer, FormGroup } from '@angular/forms';
   imports: [CommonModule],
   templateUrl: './form-field.component.html',
   styleUrl: './form-field.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldComponent {
-  // @ContentChild('inputTemplate', { static: true })
-  // inputTemplate!: TemplateRef<any>;
-  @Input() controlName!: string; // Input for control name
-  @ContentChild(TemplateRef, { static: true }) inputTemplate!: TemplateRef<any>;
+  #controlContainer = inject(ControlContainer);
+  controlName = input<string>();
+  formControl: FormControl = {} as FormControl;
 
-  constructor(private controlContainer: ControlContainer) {}
+  control = computed(() => {
+    const controlName = this.controlName();
+    if (!controlName) return null;
+    return (this.#controlContainer.control as FormGroup).get(
+      controlName
+    ) as FormControl;
+  });
 
-  get control() {
-    const formGroup = this.controlContainer.control as FormGroup;
-    return formGroup.get(this.controlName); // Get the specific FormControl
-  }
+  myEffect = effect(() => {
+    const controlName = this.controlName();
+    if (!controlName) return;
+    const formControl = (this.#controlContainer.control as FormGroup).get(
+      controlName
+    ) as FormControl;
+    this.formControl = formControl;
+    this.formControl.registerOnChange(() => {
+      console.log('formControl changed');
+    });
+  });
+
+  events = toSignal(this.formControl.events ?? of({}), {});
 
   get errorMessages() {
-    const errors = this.control?.errors;
+    const control = this.control();
+    if (!control) return null;
+    const errors = control.errors;
     if (!errors) return null;
 
     return Object.keys(errors).map((key) => {

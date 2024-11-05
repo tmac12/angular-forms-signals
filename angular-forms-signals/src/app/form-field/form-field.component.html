@@ -1,17 +1,21 @@
-<!-- <ng-content></ng-content>
-@if (profileForm.controls.email.touched &&
-        profileForm.controls.email.invalid){
-        <label class="label">
-          <span class="label-text-alt text-error">{{errorMessage}}</span>
-        </label>
-        } -->
-
 <div class="form-field">
-  <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
-  <div
-    *ngIf="control?.invalid && (control?.dirty || control?.touched)"
-    class="error-messages"
-  >
-    <div *ngFor="let message of errorMessages">{{ message }}</div>
+  <!-- @let template = inputTemplate(); @if (template){
+  <ng-container *ngTemplateOutlet="template"></ng-container>
+  }  -->
+  <ng-content></ng-content>
+  @let formControl = control(); @if (formControl){
+  <div>DEBUG: {{ formControl.errors | json }}</div>
+  <div>DEBUG MSG: {{ errorMessages | json }}</div>
+  <div>EVENTS: {{ events() | json }}</div>
+
+  @if ( formControl?.invalid && (formControl?.dirty || formControl?.touched) ){
+
+  <div class="error-messages">
+    @for (message of errorMessages; track $index) {
+    {{ message }}
+    }
   </div>
+  } } @else {
+  <h2>Control not found</h2>
+  }
 </div>
