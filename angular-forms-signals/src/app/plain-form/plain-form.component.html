@@ -1,0 +1,38 @@
+<h1>PLAIN FORM (without signals)</h1>
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name"> Name </label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      class="input input-bordered w-full max-w-xs"
+    />
+  </div>
+
+  <div>
+    <label for="address"> Address </label>
+    <input
+      id="address"
+      type="text"
+      formControlName="address"
+      class="input input-bordered w-full max-w-xs"
+    />
+  </div>
+
+  @if ( checkoutForm.invalid && (checkoutForm.dirty || checkoutForm.touched)) {
+  <div class="error-messages">
+    @let errorValidators = checkoutForm.get('name')?.errors;
+    {{ errorValidators | json }}
+    <!-- Show specific error with translation if yoy want -->
+    @if (checkoutForm.get('name')?.hasError('required')) { Name is required. }
+    <!-- @for (message of errorMessages; track $index) {
+    {{ message }}
+    } -->
+  </div>
+  }
+
+  <button [disabled]="checkoutForm.invalid" class="btn" type="submit">
+    Purchase
+  </button>
+</form>
