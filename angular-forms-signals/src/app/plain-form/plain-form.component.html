@@ -26,6 +26,8 @@
     {{ errorValidators | json }}
     <!-- Show specific error with translation if yoy want -->
     @if (checkoutForm.get('name')?.hasError('required')) { Name is required. }
+    {{ getFormValidationErrors() }}
+
     <!-- @for (message of errorMessages; track $index) {
     {{ message }}
     } -->

@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 
 export const initFrm = <T extends {}>(ctrls: T) =>
   inject(FormBuilder).nonNullable.group<T>(ctrls);
@@ -21,5 +26,19 @@ export class PlainFormComponent {
     // Process checkout data here
     alert(`submit:
    ${JSON.stringify(this.checkoutForm.value)}`);
+  }
+
+  getFormValidationErrors() {
+    Object.keys(this.checkoutForm.controls).forEach((key) => {
+      const controlErrors = this.checkoutForm.get(key)?.errors;
+      if (controlErrors) {
+        Object.keys(controlErrors).forEach((keyError) => {
+          console.log(
+            'Key control: ' + key + ', keyError: ' + keyError + ', err value: ',
+            controlErrors[keyError]
+          );
+        });
+      }
+    });
   }
 }
