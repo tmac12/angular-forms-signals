@@ -25,9 +25,13 @@ export class MyformlyComponent {
         required: true,
       },
       validation: {
-        show: true,
+        messages: {
+          pattern: (error: any, field: FormlyFieldConfig) =>
+            `"${field.formControl?.value}" is not a valid`,
+        },
       },
     },
+
     {
       key: 'age',
       type: 'input',
@@ -38,6 +42,20 @@ export class MyformlyComponent {
         min: 18,
         max: 40,
         required: true,
+      },
+    },
+    {
+      key: 'password',
+      type: 'input',
+      wrappers: [FormlyWrapperComponent],
+      props: {
+        label: 'Password (minLength = 6)',
+        type: 'password',
+        required: true,
+        minLength: 6,
+      },
+      validation: {
+        show: true,
       },
     },
   ];
