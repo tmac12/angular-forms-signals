@@ -4,16 +4,44 @@
     <input tuiTextfieldLegacy />
   </tui-input>
 </form> -->
-<form [formGroup]="testForm">
-  <tui-textfield>
-    <label> Type a text </label>
-    <input
-      formControlName="testValue"
-      tuiTextfield
-      class="input input-bordered"
-    />
-  </tui-textfield>
-</form>
+
+<div class="card">
+  <form [formGroup]="testForm">
+    <!-- force style of tui-textfield with daisyui -->
+    <tui-textfield class="input input-bordered w-full max-w-xs">
+      <label class="label">Type a text</label>
+      <input formControlName="testValue" tuiTextfield />
+    </tui-textfield>
+  </form>
+</div>
+
+<div class="divider">CARD</div>
+
+<div class="card">
+  <form [formGroup]="form">
+    <tui-textfield class="input input-bordered w-full max-w-xs">
+      <label tuiLabel>Card number</label>
+      <input
+        formControlName="card"
+        tuiInputCard
+        tuiTextfield
+        (binChange)="onBinChange($event)"
+      />
+      <!-- [icon]="card" -->
+    </tui-textfield>
+    <section>
+      <tui-textfield class="input input-bordered w-full max-w-xs">
+        <label tuiLabel>Expires</label>
+        <input formControlName="expire" tuiInputExpire tuiTextfield />
+      </tui-textfield>
+      <tui-textfield class="input input-bordered w-full max-w-xs">
+        <label tuiLabel>CVC/CVV</label>
+        <input formControlName="cvc" tuiInputCVC tuiTextfield />
+      </tui-textfield>
+    </section>
+    <tui-error formControlName="card" [error]="[] | tuiFieldError | async" />
+  </form>
+</div>
 
 <!-- <form [formGroup]="form">
   <tui-textfield>
